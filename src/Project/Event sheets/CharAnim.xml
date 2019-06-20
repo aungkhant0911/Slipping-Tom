@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<c2eventsheet>
+    <!--All the 'name' attributes are ignored by Construct 2 - they are there for readability only.-->
+    <name>CharAnim</name>
+    <events>
+        <event-block sid="1650427493560229">
+            <conditions>
+                <condition behavior="Platform" id="9" name="On landed" sid="3057119082907128" type="Player" />
+            </conditions>
+            <actions>
+                <action id="4" name="Set animation" sid="2450151849384427" type="Player">
+                    <param id="0" name="Animation">&quot;Idle&quot;</param>
+                    <param id="1" name="From">1</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block sid="7797444373868485">
+            <conditions>
+                <condition behavior="Platform" id="3" name="Is jumping" sid="2409022396282052" type="Player" />
+            </conditions>
+            <actions>
+                <action id="4" name="Set animation" sid="4586071449723493" type="Player">
+                    <param id="0" name="Animation">&quot;Jump&quot;</param>
+                    <param id="1" name="From">1</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block sid="665926281938195">
+            <conditions>
+                <condition behavior="Platform" id="0" name="Is moving" sid="6244938082905812" type="Player" />
+            </conditions>
+            <actions>
+                <action id="4" name="Set animation" sid="5053508743399067" type="Player">
+                    <param id="0" name="Animation">&quot;Run&quot;</param>
+                    <param id="1" name="From">0</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block sid="9714473585725404">
+            <conditions>
+                <condition id="4" name="Is touching object" sid="4108668454266528" type="Touch">
+                    <param id="0" name="Object">Move_Right</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="7" name="Set mirrored" sid="5985033420088004" type="Player">
+                    <param id="0" name="State">1</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block sid="2302498148781802">
+            <conditions>
+                <condition id="4" name="Is touching object" sid="7828975970799842" type="Touch">
+                    <param id="0" name="Object">Move_Left</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="7" name="Set mirrored" sid="1590068326689536" type="Player">
+                    <param id="0" name="State">0</param>
+                </action>
+            </actions>
+        </event-block>
+    </events>
+</c2eventsheet>

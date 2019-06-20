@@ -1,0 +1,404 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<c2eventsheet>
+    <!--All the 'name' attributes are ignored by Construct 2 - they are there for readability only.-->
+    <name>Event sheet 1</name>
+    <events>
+        <include>CharAnim</include>
+        <variable comment="The total distance run so far, in pixels." constant="0" name="TotalDistance" sid="962804527799409" static="0" type="number">0</variable>
+        <variable comment="Counts up to &apos;NextBlock&apos;, at which point a new block is created." constant="0" name="CurrentDistance" sid="4944710627068203" static="0" type="number">0</variable>
+        <variable comment="Disable controller at the first, before player hide behind trashbin" constant="0" name="First_Control" sid="5891187102765559" static="0" type="number">0</variable>
+        <variable comment="The distance after which to create the next block." constant="0" name="NextBlock" sid="305737877226051" static="0" type="number">600</variable>
+        <variable comment="How long will it move" constant="0" name="Sniper_Time" sid="4706129340233713" static="0" type="number">0</variable>
+        <variable comment="How long will it accelerate" constant="0" name="Sniper_Acceleration" sid="6659263557644259" static="0" type="number">0</variable>
+        <variable comment="How fast would it move" constant="0" name="Sniper_Speed" sid="8172666522435915" static="0" type="number">0</variable>
+        <variable comment="Counter of targetting system" constant="0" name="TargetLocked" sid="6859610961212166" static="0" type="number">0</variable>
+        <variable comment="Which direction will it move" constant="0" name="Sniper_Direction" sid="6400537561249237" static="0" type="number">0</variable>
+        <comment>Make sure everything moves left across the screen (since the default 0 degrees is right)</comment>
+        <event-block sid="4894260176132997">
+            <conditions>
+                <condition disabled="1" id="-2" name="On start of layout" sid="1324297544888848" type="System" />
+            </conditions>
+            <actions>
+                <action behavior="Bullet" disabled="1" id="3" name="Set angle of motion" sid="2619000202582521" type="TiledBackground">
+                    <param id="0" name="Angle">180</param>
+                </action>
+                <action behavior="Bullet" disabled="1" id="3" name="Set angle of motion" sid="8586068006954608" type="Block">
+                    <param id="0" name="Angle">180</param>
+                </action>
+            </actions>
+        </event-block>
+        <comment>Wrap the scrolling background infinitely by moving it back after it&apos;s scrolled the width of the main image to the left.</comment>
+        <event-block sid="2385303726209005">
+            <conditions>
+                <condition disabled="1" id="-1" name="Compare X" sid="5787555781832029" type="TiledBackground">
+                    <param id="0" name="Comparison">3</param>
+                    <param id="1" name="X co-ordinate">-Self.Width / 2</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action disabled="1" id="-1" name="Set X" sid="4413801242198445" type="TiledBackground">
+                    <param id="0" name="X">Self.X + Self.Width / 2</param>
+                </action>
+            </actions>
+        </event-block>
+        <comment>While on floor, keep holding the &quot;run right&quot; control, so the character keeps running.</comment>
+        <event-block sid="1296797562951426">
+            <conditions>
+                <condition behavior="Platform" disabled="1" id="2" name="Is on floor" sid="7357562132204205" type="Player" />
+            </conditions>
+            <actions>
+                <action behavior="Platform" disabled="1" id="7" name="Simulate control" sid="9768478994169541" type="Player">
+                    <param id="0" name="Control">1</param>
+                </action>
+            </actions>
+        </event-block>
+        <comment>Going to the Right</comment>
+        <event-block sid="1907973993020205">
+            <conditions>
+                <condition id="4" name="Is touching object" sid="7166722469490358" type="Touch">
+                    <param id="0" name="Object">Move_Right</param>
+                </condition>
+                <condition id="-14" name="Compare variable" sid="8715927833398707" type="System">
+                    <param id="0" name="Variable">First_Control</param>
+                    <param id="1" name="Comparison">0</param>
+                    <param id="2" name="Value">1</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action behavior="Platform" id="7" name="Simulate control" sid="4239799173377346" type="Player">
+                    <param id="0" name="Control">1</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block sid="9573102633325012">
+            <conditions>
+                <condition id="4" name="Is touching object" sid="8775364162137069" type="Touch">
+                    <param id="0" name="Object">Move_Left</param>
+                </condition>
+                <condition id="-14" name="Compare variable" sid="843761916011811" type="System">
+                    <param id="0" name="Variable">First_Control</param>
+                    <param id="1" name="Comparison">0</param>
+                    <param id="2" name="Value">1</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action behavior="Platform" id="7" name="Simulate control" sid="5271899125281732" type="Player">
+                    <param id="0" name="Control">0</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block sid="947709278311779">
+            <conditions>
+                <condition id="4" name="Is touching object" sid="233105487362007" type="Touch">
+                    <param id="0" name="Object">Move_Jump</param>
+                </condition>
+                <condition id="-14" name="Compare variable" sid="3902217367075953" type="System">
+                    <param id="0" name="Variable">First_Control</param>
+                    <param id="1" name="Comparison">0</param>
+                    <param id="2" name="Value">1</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action behavior="Platform" id="7" name="Simulate control" sid="100278848280317" type="Player">
+                    <param id="0" name="Control">2</param>
+                </action>
+            </actions>
+        </event-block>
+        <comment>Going to the Left</comment>
+        <comment>Keep incrementing the current and total distances, and display the total distance in a text object.</comment>
+        <event-block sid="5281002166095752">
+            <conditions>
+                <condition disabled="1" id="-1" name="Every tick" sid="5948696718968277" type="System" />
+            </conditions>
+            <actions>
+                <action disabled="1" id="-3" name="Set position" sid="2510922775980821" type="Sniper_Scope_Recticle">
+                    <param id="0" name="X">lerp(Sniper_Scope_Recticle.X, Player.X, 1)</param>
+                    <param id="1" name="Y">Player.Y</param>
+                </action>
+                <action disabled="1" id="-16" name="Wait" sid="9406976616503481" type="System">
+                    <param id="0" name="Seconds">1</param>
+                </action>
+                <action behavior="CustomMovement" disabled="1" id="6" name="Set angle of motion" sid="4634878932778086" type="Sniper_Scope_Recticle">
+                    <param id="0" name="Angle">angle(Self.X, Self.Y, Player.X, Player.Y)</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block sid="1508667477491907">
+            <conditions>
+                <condition disabled="1" id="-1" name="Every tick" sid="2579093758114144" type="System" />
+            </conditions>
+            <actions>
+                <action disabled="1" id="-10" name="Add to" sid="300101671908271" type="System">
+                    <param id="0" name="Variable">CurrentDistance</param>
+                    <param id="1" name="Value">Block.Bullet.Speed * dt</param>
+                </action>
+                <action disabled="1" id="-10" name="Add to" sid="8871683309567448" type="System">
+                    <param id="0" name="Variable">TotalDistance</param>
+                    <param id="1" name="Value">Block.Bullet.Speed * dt</param>
+                </action>
+                <action disabled="1" id="0" name="Set text" sid="8474992007549599" type="DistanceDisplay">
+                    <param id="0" name="Text">round(TotalDistance)</param>
+                </action>
+            </actions>
+        </event-block>
+        <comment>Once CurrentDistance reaches NextBlock, it is time to create a new block.  Create it with a random width and height, then position it just off the right edge of the screen.  Make it move to the left again, then set NextBlock to create another block a random distance after this one.</comment>
+        <event-block sid="5075618961447885">
+            <conditions>
+                <condition disabled="1" id="-14" name="Compare variable" sid="4925873287975097" type="System">
+                    <param id="0" name="Variable">CurrentDistance</param>
+                    <param id="1" name="Comparison">5</param>
+                    <param id="2" name="Value">NextBlock</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action disabled="1" id="-11" name="Subtract from" sid="191965645325262" type="System">
+                    <param id="0" name="Variable">CurrentDistance</param>
+                    <param id="1" name="Value">NextBlock</param>
+                </action>
+                <action disabled="1" id="-3" name="Create object" sid="8245798262654517" type="System">
+                    <param id="0" name="Object to create">Block</param>
+                    <param id="1" name="Layer">&quot;Game&quot;</param>
+                    <param id="2" name="X">0</param>
+                    <param id="3" name="Y">0</param>
+                </action>
+                <action disabled="1" id="-7" name="Set size" sid="1614784057792103" type="Block">
+                    <param id="0" name="Width">100 + random(400)</param>
+                    <param id="1" name="Height">60 + random(180)</param>
+                </action>
+                <action disabled="1" id="-3" name="Set position" sid="399828067480196" type="Block">
+                    <param id="0" name="X">LayoutWidth</param>
+                    <param id="1" name="Y">LayoutHeight - Self.Height</param>
+                </action>
+                <action behavior="Bullet" disabled="1" id="3" name="Set angle of motion" sid="2596050856551346" type="Block">
+                    <param id="0" name="Angle">180</param>
+                </action>
+                <action disabled="1" id="-9" name="Set value" sid="4683034020051826" type="System">
+                    <param id="0" name="Variable">NextBlock</param>
+                    <param id="1" name="Value">Block.Width + 20 + random(200)</param>
+                </action>
+            </actions>
+        </event-block>
+        <comment>Destroy blocks that go off the left of the screen so they don&apos;t keep taking up memory or CPU.</comment>
+        <event-block sid="3735808635379671">
+            <conditions>
+                <condition disabled="1" id="-1" name="Compare X" sid="5940075540693877" type="Block">
+                    <param id="0" name="Comparison">2</param>
+                    <param id="1" name="X co-ordinate">-Self.Width</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action disabled="1" id="-9" name="Destroy" sid="9046367852030082" type="Block" />
+            </actions>
+        </event-block>
+        <comment>If the player falls off the bottom of the screen, restart the game.</comment>
+        <event-block sid="2385975525697623">
+            <conditions>
+                <condition disabled="1" id="-2" name="Compare Y" sid="3152981306310084" type="Player">
+                    <param id="0" name="Comparison">4</param>
+                    <param id="1" name="Y co-ordinate">LayoutHeight</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action disabled="1" id="-21" name="Reset global variables" sid="145222084021974" type="System" />
+                <action disabled="1" id="-26" name="Restart layout" sid="7850187470016609" type="System" />
+            </actions>
+        </event-block>
+        <comment>Due to the acceleration of the platform movement, we need to do some tweaks to make sure the player doesn&apos;t gradually get pushed off to the left of the screen over time.</comment>
+        <event-block sid="3128100642372699">
+            <conditions>
+                <condition id="-1" name="Compare X" sid="9796920304085815" type="Player">
+                    <param id="0" name="Comparison">2</param>
+                    <param id="1" name="X co-ordinate">105</param>
+                </condition>
+                <condition behavior="Platform" id="2" inverted="1" name="Is on floor" sid="3993259720624639" type="Player" />
+            </conditions>
+            <actions>
+                <action id="-1" name="Set X" sid="2789375289099278" type="Player">
+                    <param id="0" name="X">Self.X + 2 * dt</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block sid="9166476358665021">
+            <conditions>
+                <condition behavior="Platform" id="9" name="On landed" sid="409679157735015" type="Player" />
+            </conditions>
+            <actions>
+                <action id="-1" name="Set X" sid="8265308529058024" type="Player">
+                    <param id="0" name="X">Self.X + 3</param>
+                </action>
+            </actions>
+        </event-block>
+        <comment>Sniper shaking hand</comment>
+        <event-block sid="6874037824267832">
+            <conditions>
+                <condition disabled="1" id="-6" name="Every X seconds" sid="8868980068763433" type="System">
+                    <param id="0" name="Interval (seconds)">2</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action disabled="1" id="-9" name="Set value" sid="2362461831717888" type="System">
+                    <param id="0" name="Variable">Sniper_Acceleration</param>
+                    <param id="1" name="Value">0 + random(2)</param>
+                </action>
+                <action behavior="Bullet" disabled="1" id="1" name="Set acceleration" sid="1308112049107522" type="TiledBackground">
+                    <param id="0" name="Acceleration">Sniper_Acceleration</param>
+                </action>
+                <action disabled="1" id="-9" name="Set value" sid="9494485866038943" type="System">
+                    <param id="0" name="Variable">Sniper_Direction</param>
+                    <param id="1" name="Value">0 + random(360)</param>
+                </action>
+                <action behavior="Bullet" disabled="1" id="3" name="Set angle of motion" sid="1793531970101948" type="TiledBackground">
+                    <param id="0" name="Angle">Sniper_Direction</param>
+                </action>
+                <action behavior="Bullet" disabled="1" id="1" name="Set acceleration" sid="9598824272391632" type="Block">
+                    <param id="0" name="Acceleration">Sniper_Acceleration</param>
+                </action>
+                <action behavior="Bullet" disabled="1" id="3" name="Set angle of motion" sid="6609477767487658" type="Block">
+                    <param id="0" name="Angle">Sniper_Direction</param>
+                </action>
+            </actions>
+        </event-block>
+        <comment>Check if the Player hit the Move_Right</comment>
+        <event-block disabled="1" sid="5920400483984378">
+            <conditions>
+                <condition id="1" name="Is overlapping another object" sid="8930608407817646" type="Player">
+                    <param id="0" name="Object">Move_Right</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action behavior="Bullet" id="3" name="Set angle of motion" sid="3475153665538392" type="TiledBackground">
+                    <param id="0" name="Angle">180</param>
+                </action>
+                <action behavior="Bullet" id="3" name="Set angle of motion" sid="958686604213958" type="Block">
+                    <param id="0" name="Angle">180</param>
+                </action>
+                <action behavior="Bullet" id="1" name="Set acceleration" sid="8980176427690155" type="TiledBackground">
+                    <param id="0" name="Acceleration">20</param>
+                </action>
+                <action behavior="Bullet" id="1" name="Set acceleration" sid="8123888210314911" type="Block">
+                    <param id="0" name="Acceleration">150</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block disabled="1" sid="342444091456358">
+            <conditions>
+                <condition id="-22" name="Else" sid="1920086195181345" type="System" />
+            </conditions>
+            <actions>
+                <action behavior="Platform" disabled="1" id="2" name="Set acceleration" sid="7495901346771156" type="Player">
+                    <param id="0" name="Acceleration">-225</param>
+                </action>
+                <action behavior="Bullet" id="1" name="Set acceleration" sid="3310696502681827" type="TiledBackground">
+                    <param id="0" name="Acceleration">-30</param>
+                </action>
+                <action behavior="Bullet" id="1" name="Set acceleration" sid="1881187766795555" type="Block">
+                    <param id="0" name="Acceleration">-225</param>
+                </action>
+            </actions>
+        </event-block>
+        <comment>Sniper scope aiming at player ALWAYS</comment>
+        <event-block sid="5437310526646614">
+            <conditions>
+                <condition disabled="1" id="-6" name="Every X seconds" sid="3656855418275616" type="System">
+                    <param id="0" name="Interval (seconds)">1.0</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action disabled="1" id="-8" name="Set angle" sid="3439666378397462" type="Block">
+                    <param id="0" name="Angle">angle(Sniper_Scope_Recticle.X, Sniper_Scope_Recticle.Y, Block.X, Block.Y)</param>
+                </action>
+                <action disabled="1" id="-23" name="Move at angle" sid="8936162296594156" type="Player">
+                    <param id="0" name="Angle">angle(Player.X, Player.Y, Sniper_Scope_Recticle.X, Sniper_Scope_Recticle.Y)</param>
+                    <param id="1" name="Distance">1</param>
+                </action>
+                <action behavior="Platform" disabled="1" id="10" name="Set angle of gravity" sid="9605661947533091" type="Player">
+                    <param id="0" name="Angle">angle(Player.X, Player.Y, Sniper_Scope_Recticle.X, Sniper_Scope_Recticle.Y)</param>
+                </action>
+                <action behavior="Platform" disabled="1" id="10" name="Set angle of gravity" sid="6347495934249909" type="Player">
+                    <param id="0" name="Angle">angle(Player.X, Player.Y, Sniper_Scope_Recticle.X, Sniper_Scope_Recticle.Y)</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block sid="2844588600782267">
+            <conditions>
+                <condition id="-1" name="Every tick" sid="5839984504729438" type="System" />
+                <condition id="-9" name="Is visible" sid="2312916802512122" type="Player" />
+            </conditions>
+            <actions />
+            <sub-events>
+                <event-block sid="7136197538270186">
+                    <conditions>
+                        <condition id="1" inverted="1" name="Is overlapping another object" sid="6160592305390439" type="Sniper_Scope_Recticle">
+                            <param id="0" name="Object">Player</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action behavior="CustomMovement" id="5" name="Accelerate toward position" sid="5038369715994891" type="Sniper_Scope_Recticle">
+                            <param id="0" name="Acceleration">100</param>
+                            <param id="1" name="X">Player.X</param>
+                            <param id="2" name="Y">Player.Y</param>
+                        </action>
+                        <action id="-9" name="Set value" sid="6026050478911072" type="System">
+                            <param id="0" name="Variable">TargetLocked</param>
+                            <param id="1" name="Value">0</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block sid="8877864110056878">
+                    <conditions>
+                        <condition id="-22" name="Else" sid="7091480919984448" type="System" />
+                    </conditions>
+                    <actions>
+                        <action id="-16" name="Wait" sid="7559500925866256" type="System">
+                            <param id="0" name="Seconds">0.25</param>
+                        </action>
+                        <action behavior="CustomMovement" id="2" name="Set speed" sid="392113572113141" type="Sniper_Scope_Recticle">
+                            <param id="0" name="Which">0</param>
+                            <param id="1" name="Speed">20</param>
+                        </action>
+                        <action id="-10" name="Add to" sid="3766055419000566" type="System">
+                            <param id="0" name="Variable">TargetLocked</param>
+                            <param id="1" name="Value">0.1</param>
+                        </action>
+                    </actions>
+                </event-block>
+            </sub-events>
+        </event-block>
+        <event-block sid="2284253246894633">
+            <conditions>
+                <condition id="-14" name="Compare variable" sid="4430059253806647" type="System">
+                    <param id="0" name="Variable">TargetLocked</param>
+                    <param id="1" name="Comparison">4</param>
+                    <param id="2" name="Value">2</param>
+                </condition>
+                <condition id="1" name="Is overlapping another object" sid="6823870909875166" type="Sniper_Scope_Recticle">
+                    <param id="0" name="Object">Player</param>
+                </condition>
+                <condition id="1" inverted="1" name="Is overlapping another object" sid="1925745978871017" type="Sniper_Scope_Recticle">
+                    <param id="0" name="Object">Post_Box01</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="-9" name="Destroy" sid="6229373748756867" type="Player" />
+                <action behavior="CustomMovement" id="2" name="Set speed" sid="7409981010456727" type="Sniper_Scope_Recticle">
+                    <param id="0" name="Which">0</param>
+                    <param id="1" name="Speed">0</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block sid="6703014655677478">
+            <conditions>
+                <condition id="-2" name="On start of layout" sid="6996264667382953" type="System" />
+            </conditions>
+            <actions>
+                <action id="-16" name="Wait" sid="5815462075622783" type="System">
+                    <param id="0" name="Seconds">2</param>
+                </action>
+                <action id="-9" name="Set value" sid="2961663487914153" type="System">
+                    <param id="0" name="Variable">First_Control</param>
+                    <param id="1" name="Value">1</param>
+                </action>
+            </actions>
+        </event-block>
+    </events>
+</c2eventsheet>
