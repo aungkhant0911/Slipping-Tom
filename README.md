@@ -21,4 +21,4 @@ As described in the image below, there are 2-color coded regions where each acti
 - Likewise, swiping to the respective direction in the corresponding region entails jump action in that direction. How far of a jump or the intensity depends how far the swipe is from the start to end (and also a little bit of speed).
 - Tapping anywhere that is not color-coded, entails a jump in that position (ie; no position change). Tapping, however, means a climb in front of a ladder.
 
-![Capturing](/press/controls.jpg)
+![Capturing](/press/controls.JPG)
