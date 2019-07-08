@@ -17,9 +17,9 @@
 There are 2 different actions player can take: running and jumping. Climbing is also possible but it is contexual, and hence it is tied to the jump mechanic. Where there are ladders, player is able to climb instead of jump.
 
 As described in the image below, there are 2 color-coded regions where each action takes place.
-- A long-press in the blue region entails run-left, while in the yellow one triggers run-right.
-- Likewise, swiping to the respective direction in the corresponding region entails jump action in that direction. How far of the jump or the intensity depends on how far the swipe is from start to end (and also a little bit of speed).
-- Tapping anywhere that is not color-coded, entails a jump in that position (ie; no position change). Tapping, however, means a climb in front of a ladder.
+- A long-press in the blue region desginates run-left, while in the yellow one triggers run-right.
+- Likewise, swiping to the respective direction in the corresponding region desginates jump action in that direction. How far of a jump or intensity depends on how far the swipe is from start to end (and also a little bit of speed).
+- Tapping anywhere that is not color-coded, results in a jump in that position (ie; no position change). Tapping, however, means a climb in front of a ladder.
 
 ![Capturing](/press/controls.JPG)
 
