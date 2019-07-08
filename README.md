@@ -5,6 +5,20 @@
   
   
  # Gameplay Demo
+ 
  As the saying "a picture says a thousand words" goes, I bring to you a 2-minute gameplay video, from start to end.
 
 [![Capturing](http://img.youtube.com/vi/1_DRGgIcUy0/0.jpg)](https://www.youtube.com/watch?v=1_DRGgIcUy0 "Slipping Tom")
+
+
+
+# How controls work?
+
+There are 2 different actions a player can take: running and jumping. Climbing is also possible but it is contexual, and hence it is tied to the jump mechanic. Where there are ladders, player is able to climb instead of jump.
+
+As described in the image below, there are 2-color coded regions where each action takes place.
+- A long-press in the blue region entails run-left, while in the yellow region triggers run-right.
+- Likewise, swiping to the respective direction in the corresponding region entails jump action in that direction. How far of a jump or the intensity depends how far the swipe is from the start to end (and also a little bit of speed).
+- Tapping anywhere that is not color-coded, entails a jump in that position (ie; no position change). Tapping, however, means a climb in front of a ladder.
+
+![Capturing](/press/controls.jpg)
