@@ -22,3 +22,10 @@ As described in the image below, there are 2-color coded regions where each acti
 - Tapping anywhere that is not color-coded, entails a jump in that position (ie; no position change). Tapping, however, means a climb in front of a ladder.
 
 ![Capturing](/press/controls.JPG)
+
+
+
+
+# Technologies used
+
+- Construct 2
