@@ -12,7 +12,7 @@
 
 
 
-# How controls work?
+# How Game Mechanics Work?
 
 There are 2 different actions player can take: running and jumping. Climbing is also possible but it is contexual, and hence it is tied to the jump mechanic. Where there are ladders, player is able to climb instead of jump.
 
