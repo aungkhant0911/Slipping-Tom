@@ -8,7 +8,7 @@
  
  As the saying "a picture says a thousand words" goes, I bring to you a 2-minute gameplay video, from start to end.
 
-[![Capturing](http://img.youtube.com/vi/1_DRGgIcUy0/0.jpg)](https://www.youtube.com/watch?v=1_DRGgIcUy0 "Slipping Tom")
+[![Capturing](press/demo.gif)](https://www.youtube.com/watch?v=1_DRGgIcUy0 "Slipping Tom")
 
 
 
