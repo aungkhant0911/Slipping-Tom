@@ -6,7 +6,7 @@
   
  # Gameplay Demo
  
- As the saying "a picture says a thousand words" goes, I bring to you a 2-minute gameplay video, from start to end.
+ As the saying "a picture says a thousand words" goes, I bring to you a 2-minute gameplay video, from start to end. **Click on the image to see the full demo on Youtube.**
 
 [![Capturing](press/demo.gif)](https://www.youtube.com/watch?v=1_DRGgIcUy0 "Slipping Tom")
 
@@ -29,3 +29,4 @@ As described in the image below, there are 2 color-coded regions where each acti
 # Technologies used
 
 - Construct 2
+- Photoshop
